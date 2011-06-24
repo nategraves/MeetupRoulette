@@ -9,7 +9,7 @@ def index(request):
 	return render_to_response('roulette/index.html', {
 		'form': form
 	}, context_instance = RequestContext(request))
-	
+
 def meetup(request):
 	# It's easier to keep tweaking the filter rules if it's ugly like this
 	def is_possible_meetup(meetup):
@@ -53,7 +53,9 @@ def meetup(request):
 				meetup = random.choice(meetups['results'])
 				is_okay_to_rsvp = is_possible_meetup(meetup)
 			
-			group_join_requirements = group_requires_info(meetup['group']['id'])
+			#group_join_requirements = group_requires_info(meetup['group']['id'])
+			# Matt Damon is best test in world
+			group_join_requirements = group_requires_info(1781190)
 			if group_join_requirements:
 				if "questions" in group_join_requirements:
 					question_fields = group_join_requirements['questions']
@@ -74,5 +76,25 @@ def meetup(request):
 				'intro_fields': intro_fields,
 				'question_fields': question_fields
 			}, context_instance = RequestContext(request))
+	else:
+		return HttpResponseRedirect('/')
+		
+def rsvp(request):
+	if request.method == "POST":
+		# First, the user must join the group
+		join_url = "http://api.meetup.com/2/profile/?key=%s&group_id=%s&group_urlname=%s" % (settings.MEETUP_API_KEY, request.POST['group_id'], request.POST['group_urlname'])
+		for item in request.POST:
+			if item.find('answer') > -1 or item.find('intro') > -1:
+				join_url += "&%s=%s" % (item, request.POST[item])
+				
+		join_resp = urllib2.urlopen(url).read().decode('latin1').encode('utf8')
+		
+		# Then we rsvp them to the event
+		url = "https://api.meetup.com/rsvp?event_id=%s&rsvp=yes" % request.POST['event_id']
+		response = urllib2.urlopen(url).read().decode('latin1').encode('utf8')
+		
+		return render_to_response('roulette/rsvp.html', {
+			'response': request.POST
+		}, context_instance = RequestContext(request))
 	else:
 		return HttpResponseRedirect('/')

@@ -26,10 +26,20 @@ body {
 	text-align: center;
 }
 
-h1 {
+h1, h2 {
 	font-size: 4em;
 	text-shadow: 1px 1px 7px #999;
 	margin: 0 0 0.4em;
+}
+
+h2 {
+	font-size: 3em;
+	margin-bottom: 1em;
+	color: #555;
+}
+
+#page-center {
+	margin-top: 80px;
 }
 
 p {
@@ -91,4 +101,8 @@ p {
 #do-over input[type='submit'] {
 	font-size: 1em;
 	padding: .2em .4em;
+}
+
+#submit-my-rsvp {
+	margin-top: 1em;
 }

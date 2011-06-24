@@ -9,23 +9,29 @@
 	</form>
 	<img id="event-map" src="http://maps.google.com/maps/api/staticmap?center={{ meetup.venue.address1|urlencode }}&zoom=14&size=200x200&maptype=roadmap&markers=color:blue|label:M|{{ meetup.venue.lat }},{{ meetup.venue.lon }}&sensor=false" />
 	<div id="event-ticket" class="clearfix">
-		<label>Who:</label>
-		<p><a href="http://meetup.com/{{ meetup.group.urlname }}">{{ meetup.group.name }}</a></p>
-		<label>Where:</label>
-		<p>{{ meetup.venue.name }}</p>
+		<form action="/rsvp/" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="event_id" value="{{ meetup.id }}" />
+			<input type="hidden" name="group_id" value="{{ meetup.group.id }}" />
+			<input type="hidden" name="group_urlname" value="{{ meetup.group.urlname }}" />
+			<label>Who:</label>
+			<p><a href="http://meetup.com/{{ meetup.group.urlname }}">{{ meetup.group.name }}</a></p>
+			<label>Where:</label>
+			<p>{{ meetup.venue.name }}</p>
 		
-		{% if intro_fields %}
-			<label for="intro-field">This group requires that you introduce yourself!</label>
-			<textarea id="intro-field" name="intro-field"></textarea>
-		{% endif %}
+			{% if intro_fields %}
+				<label for="intro-field">This group requires that you introduce yourself!</label>
+				<textarea id="intro-field" name="intro"></textarea>
+			{% endif %}
 		
-		{% for question in question_fields %}
-			<label>{{ question.question }}</label>
-			<textarea name="{{ question.id }}"></textarea>
-		{% endfor %}
+			{% for question in question_fields %}
+				<label>{{ question.question }}</label>
+				<textarea name="answer_{{ question.id }}"></textarea>
+			{% endfor %}
 		
-		<p>
-			<input type="submit" class="get-the-fuck-off" value="Yes, I want to go to there" />
-		</p>
+			<p id="submit-my-rsvp">
+				<input type="submit" class="get-the-fuck-off" value="Yes, I want to go to there" />
+			</p>
+		</form>
 	</div>
 {% endblock %}

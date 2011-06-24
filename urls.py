@@ -6,9 +6,9 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
 		url(r'^$', 'roulette.views.index'),
 		url(r'^meetup/$', 'roulette.views.meetup'),
+		url(r'^rsvp/$', 'roulette.views.rsvp'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
