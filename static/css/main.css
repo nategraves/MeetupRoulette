@@ -1,3 +1,16 @@
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+
 html {
 	font: normal 62.5%/1 Helvetica, Arial, sans-serif;
 	background-color: #f1f1f1;
@@ -21,6 +34,7 @@ h1 {
 p {
 	font-size: 1.4em;
 	line-height: 1.7em;
+	margin: 0 0 1em;
 }
 
 #get-the-fuck-off {
@@ -34,4 +48,36 @@ p {
 	color: #fff;
 	font-size: 2em;
 	padding: .5em 1em;
+}
+
+#event-ticket {
+	width: 478px;
+	text-align: left;
+	float: right;
+}
+
+#event-ticket label {
+	display: block;
+	font-weight: bold;
+	font-size: 1.4em;
+	line-height: 1.7em;
+}
+
+#event-ticket textarea {
+	margin-bottom: 1em;
+	width: 400px;
+	font-size: 1.2em;
+	padding: 5px;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	min-height: 5em;
+}
+
+#event-ticket textarea:focus { outline: 0 none; }
+
+#event-map {
+	float: left;
+	margin-right: 20px;
 }

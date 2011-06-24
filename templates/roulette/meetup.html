@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-	<h1>Congratulations!</h1>
-	<p>
-		We've RSVPed you for <strong><a href="{{ meetup.event_link }}">{{ meetup.name }}</a></strong> at <strong>{{ meetup.venue.name }}</strong> with <strong>{{ meetup.group.name }}</strong>
-	</p>
+	<h1>You're going to <a href="{{ meetup.event_link }}">{{ meetup.name }}</a></h1>
+	<img id="event-map" src="http://maps.google.com/maps/api/staticmap?center={{ meetup.venue.address1|urlencode }}&zoom=14&size=200x200&maptype=roadmap&markers=color:blue|label:M|{{ meetup.venue.lat }},{{ meetup.venue.lon }}&sensor=false" />
+	<div id="event-ticket" class="clearfix">
+		<label>Who:</label>
+		<p><a href="http://meetup.com/{{ meetup.group.urlname }}">{{ meetup.group.name }}</a></p>
+		<label>Where:</label>
+		<p>{{ meetup.venue.name }}</p>
+		
+		{% if intro_fields %}
+			<label for="intro-field">This group requires that you introduce yourself!</label>
+			<textarea id="intro-field" name="intro-field"></textarea>
+		{% endif %}
+		
+		{% for question in question_fields %}
+			<label>{{ question.question }}</label>
+			<textarea name="{{ question.id }}"></textarea>
+		{% endfor %}
+	</div>
 	
 	<form action="/meetup/" method="POST">
 		{% csrf_token %}
