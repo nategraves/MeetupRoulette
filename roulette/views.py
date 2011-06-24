@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
 from roulette.forms import RandomMeetupForm
 from django.conf import settings
@@ -25,8 +25,19 @@ def meetup(request):
 			except:
 				meetups = {'shit is broken'}
 			
+			is_okay_to_rsvp = False
+
+			while is_okay_to_rsvp == False:
+				meetup = random.choice(meetups['results'])
+				if "fee" not in meetup:
+					if "rsvp_limit" in meetup and meetup['yes_rsvp_count'] >= meetup['rsvp_limit']:
+						is_okay_to_rsvp = False
+					else:
+ 						is_okay_to_rsvp = True
+			
+			
 			return render_to_response('roulette/meetup.html', {
-				'meetup': random.choice(meetups['results']),
+				'meetup': meetup,
 				'form': new_form
 			}, context_instance = RequestContext(request))
 	else:
