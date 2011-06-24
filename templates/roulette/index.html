@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+	<h1>Are you ready to face your fears?</h1>
+	<form action="/meetup/" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" id="get-the-fuck-off" value="Get me off the internet &rarr;" />
+	</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+	<h1>Congratulations!</h1>
+	<p>
+		We've RSVPed you for <strong><a href="{{ meetup.event_link }}">{{ meetup.name }}</a></strong> at <strong>{{ meetup.venue.name }}</strong> with <strong>{{ meetup.group.name }}</strong>
+	</p>
+	
+	<form action="/meetup/" method="POST">
+		{{ form.as_p }}
+		<input type="submit" id="get-the-fuck-off" value="No, I want a different one" />
+	</form>
+{% endblock %}

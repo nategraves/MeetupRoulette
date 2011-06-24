@@ -1,0 +1,37 @@
+html {
+	font: normal 62.5%/1 Helvetica, Arial, sans-serif;
+	background-color: #f1f1f1;
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 700px;
+	margin: 100px auto 0;
+	padding: 0;
+	text-align: center;
+}
+
+h1 {
+	font-size: 4em;
+	text-shadow: 1px 1px 7px #999;
+}
+
+p {
+	font-size: 1.4em;
+	line-height: 1.7em;
+}
+
+#get-the-fuck-off {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 3px solid #B53336;
+	background-color: #E51937;
+	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.12) 0px 0px 10px inset;
+  -moz-box-shadow: 0 3px 3px rgba(0,0,0,0.20), rgba(0,0,0,0.12) 0px 0px 10px inset;
+	color: #fff;
+	font-size: 2em;
+	padding: .5em 1em;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Meetup Roulette - Face Your Fears</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+	</head>
+	<body>
+		{% block main_content %}
+			Uh oh some shit is wack, yo
+		{% endblock %}
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				if (navigator && navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function (data) {
+						$('#id_lat').val(data.coords.latitude);
+						$('#id_lon').val(data.coords.longitude);
+					});
+				}
+			});
+		</script>
+		{% block page_scripts %}
+			<!-- Ain't no scripts here, boss -->
+		{% endblock %}
+	</body>
+</html>
