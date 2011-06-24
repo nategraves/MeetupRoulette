@@ -17,6 +17,7 @@ def meetup(request):
 			lat = form.cleaned_data['lat']
 			lon = form.cleaned_data['lon']
 			url = "https://api.meetup.com/2/open_events?key=%s&sign=true&lon=%s&lat=%s" % (settings.MEETUP_API_KEY, lon, lat)
+			new_form = RandomMeetupForm()
 			
 			try:
 				raw_data = urllib2.urlopen(url).read().decode('latin1').encode('utf8')
@@ -25,7 +26,8 @@ def meetup(request):
 				meetups = {'shit is broken'}
 			
 			return render_to_response('roulette/meetup.html', {
-				'meetup': random.choice(meetups['results'])
+				'meetup': random.choice(meetups['results']),
+				'form': new_form
 			}, context_instance = RequestContext(request))
 	else:
 		return HttpResponseRedirect('/')

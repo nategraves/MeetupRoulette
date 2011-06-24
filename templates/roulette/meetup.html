@@ -7,6 +7,7 @@
 	</p>
 	
 	<form action="/meetup/" method="POST">
+		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" id="get-the-fuck-off" value="No, I want a different one" />
 	</form>
