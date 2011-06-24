@@ -53,7 +53,7 @@ def meetup(request):
 				meetup = random.choice(meetups['results'])
 				is_okay_to_rsvp = is_possible_meetup(meetup)
 			
-			group_join_requirements = group_requires_info("1781190")
+			group_join_requirements = group_requires_info(meetup['group']['id'])
 			if group_join_requirements:
 				if "questions" in group_join_requirements:
 					question_fields = group_join_requirements['questions']

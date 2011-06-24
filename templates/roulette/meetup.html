@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-	<h1>You're going to <a href="{{ meetup.event_link }}">{{ meetup.name }}</a></h1>
+	<h1>You're RSVPing for <a href="{{ meetup.event_link }}">{{ meetup.name }}</a></h1>
+	<form id="do-over" action="/meetup/" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" class="get-the-fuck-off" value="No, I want a different one" />
+	</form>
 	<img id="event-map" src="http://maps.google.com/maps/api/staticmap?center={{ meetup.venue.address1|urlencode }}&zoom=14&size=200x200&maptype=roadmap&markers=color:blue|label:M|{{ meetup.venue.lat }},{{ meetup.venue.lon }}&sensor=false" />
 	<div id="event-ticket" class="clearfix">
 		<label>Who:</label>
@@ -18,11 +23,9 @@
 			<label>{{ question.question }}</label>
 			<textarea name="{{ question.id }}"></textarea>
 		{% endfor %}
+		
+		<p>
+			<input type="submit" class="get-the-fuck-off" value="Yes, I want to go to there" />
+		</p>
 	</div>
-	
-	<form action="/meetup/" method="POST">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" id="get-the-fuck-off" value="No, I want a different one" />
-	</form>
 {% endblock %}
