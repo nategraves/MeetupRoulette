@@ -29,7 +29,7 @@ def meetup(request):
 
 			while is_okay_to_rsvp == False:
 				meetup = random.choice(meetups['results'])
-				if "fee" not in meetup:
+				if "fee" not in meetup and meetup['group']['join_mode'] == 'open':
 					if "rsvp_limit" in meetup and meetup['yes_rsvp_count'] >= meetup['rsvp_limit']:
 						is_okay_to_rsvp = False
 					else:
