@@ -4,6 +4,9 @@ from roulette.forms import RandomMeetupForm
 from django.conf import settings
 import json, urllib2, random
 
+def get_url_proper(url):
+	return urllib2.openurl(url).read().decode('latin1').encode('utf8')
+
 def index(request):
 	form = RandomMeetupForm()
 	return render_to_response('roulette/index.html', {
@@ -26,7 +29,7 @@ def meetup(request):
 			
 	def group_requires_info(group_id):
 		url = "https://api.meetup.com/2/groups?key=%s&sign=true&fields=join_info&group_id=%s" % (settings.MEETUP_API_KEY, group_id)
-		data = json.loads(urllib2.urlopen(url).read().decode('latin1').encode('utf8'))
+		data = json.loads(get_url_proper(url))
 		res = data['results'][0]
 		if res['join_info']['questions_req'] == "0" and res['join_info']['intro_req'] == "0":
 			return False
@@ -42,7 +45,7 @@ def meetup(request):
 			new_form = RandomMeetupForm()
 			
 			try:
-				raw_data = urllib2.urlopen(url).read().decode('latin1').encode('utf8')
+				raw_data = get_url_proper(url)
 				meetups = json.loads(raw_data)
 			except:
 				meetups = {'shit is broken'}
@@ -87,11 +90,11 @@ def rsvp(request):
 			if item.find('answer') > -1 or item.find('intro') > -1:
 				join_url += "&%s=%s" % (item, request.POST[item])
 				
-		join_resp = urllib2.urlopen(url).read().decode('latin1').encode('utf8')
+		join_resp = get_url_proper(url)
 		
 		# Then we rsvp them to the event
 		url = "https://api.meetup.com/rsvp?event_id=%s&rsvp=yes" % request.POST['event_id']
-		response = urllib2.urlopen(url).read().decode('latin1').encode('utf8')
+		response = get_url_proper(url)
 		
 		return render_to_response('roulette/rsvp.html', {
 			'response': request.POST
